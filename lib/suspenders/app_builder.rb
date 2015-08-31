@@ -398,10 +398,6 @@ end
       end
     end
 
-    def generate_secret
-      SecureRandom.hex(64)
-    end
-
     def port
       @port ||= [3000, 4000, 5000, 7000, 8000, 9000].sample
     end
