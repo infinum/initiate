@@ -29,7 +29,6 @@ module Suspenders
       invoke :configure_app
       invoke :setup_stylesheets
       invoke :copy_miscellaneous_files
-      invoke :customize_error_pages
       invoke :remove_routes_comment_lines
       invoke :setup_git
       invoke :setup_database
@@ -118,7 +117,6 @@ module Suspenders
       build :fix_i18n_deprecation_warning
       build :setup_default_rake_task
       build :configure_puma
-      build :setup_foreman
     end
 
     def setup_stylesheets
@@ -158,11 +156,6 @@ module Suspenders
     def copy_miscellaneous_files
       say 'Copying miscellaneous support files'
       build :copy_miscellaneous_files
-    end
-
-    def customize_error_pages
-      say 'Customizing the 500/404/422 pages'
-      build :customize_error_pages
     end
 
     def remove_routes_comment_lines
