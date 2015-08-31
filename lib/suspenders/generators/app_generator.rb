@@ -1,22 +1,11 @@
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
+# TODO:       build :provide_deploy_script
 module Suspenders
   class AppGenerator < Rails::Generators::AppGenerator
     class_option :database, type: :string, aliases: "-d", default: "postgresql",
       desc: "Configure for selected database (options: #{DATABASES.join("/")})"
-
-    class_option :heroku, type: :boolean, aliases: "-H", default: false,
-      desc: "Create staging and production Heroku apps"
-
-    class_option :heroku_flags, type: :string, default: "",
-      desc: "Set extra Heroku flags"
-
-    class_option :github, type: :string, aliases: "-G", default: nil,
-      desc: "Create Github repository and add remote origin pointed to repo"
-
-    class_option :skip_test_unit, type: :boolean, aliases: "-T", default: true,
-      desc: "Skip Test::Unit files"
 
     class_option :skip_turbolinks, type: :boolean, default: true,
       desc: "Skip turbolinks gem"
@@ -47,8 +36,6 @@ module Suspenders
       invoke :setup_dotfiles
       invoke :setup_git
       invoke :setup_database
-      invoke :create_heroku_apps
-      invoke :create_github_repo
       invoke :setup_segment
       invoke :setup_bundler_audit
       invoke :setup_spring
@@ -58,11 +45,6 @@ module Suspenders
     def customize_gemfile
       build :replace_gemfile
       build :set_ruby_to_version_being_used
-
-      if options[:heroku]
-        build :setup_heroku_specific_gems
-      end
-
       bundle_command 'install'
     end
 
@@ -158,29 +140,9 @@ module Suspenders
     end
 
     def setup_git
-      if !options[:skip_git]
-        say 'Initializing git'
-        invoke :setup_gitignore
-        invoke :init_git
-      end
-    end
-
-    def create_heroku_apps
-      if options[:heroku]
-        say "Creating Heroku apps"
-        build :create_heroku_apps, options[:heroku_flags]
-        build :set_heroku_serve_static_files
-        build :set_heroku_remotes
-        build :set_heroku_rails_secrets
-        build :provide_deploy_script
-      end
-    end
-
-    def create_github_repo
-      if !options[:skip_git] && options[:github]
-        say 'Creating Github repo'
-        build :create_github_repo, options[:github]
-      end
+      say 'Initializing git'
+      invoke :setup_gitignore
+      invoke :init_git
     end
 
     def setup_segment
