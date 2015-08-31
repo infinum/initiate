@@ -14,6 +14,7 @@ module Suspenders
 
     def suspenders_customization
       invoke :customize_gemfile
+      invoke :setup_database
       invoke :setup_development_environment
       invoke :setup_test_environment
       invoke :setup_production_environment
@@ -25,7 +26,6 @@ module Suspenders
       invoke :copy_miscellaneous_files
       invoke :remove_routes_comment_lines
       invoke :setup_git
-      invoke :setup_database
       invoke :setup_bundler_audit
       invoke :setup_spring
       invoke :outro
