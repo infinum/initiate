@@ -11,17 +11,18 @@ module Suspenders
       generate "bugsnag #{bugsnag_api_key}"
     end
 
-    def raise_on_delivery_errors
+    def setup_development_mailer
       replace_in_file 'config/environments/development.rb',
-        'raise_delivery_errors = false', 'raise_delivery_errors = true'
+        '  config.action_mailer.raise_delivery_errors = false', mailer_configuration
     end
 
-    def set_test_delivery_method
-      inject_into_file(
-        "config/environments/development.rb",
-        "\n  config.action_mailer.delivery_method = :test",
-        after: "config.action_mailer.raise_delivery_errors = true",
-      )
+    def mailer_configuration
+      <<-RUBY
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.preview_path = "\#{Rails.root}/lib/mailer_previews"
+      RUBY
     end
 
     def raise_on_unpermitted_parameters
@@ -32,7 +33,7 @@ module Suspenders
       inject_into_class "config/application.rb", "Application", config
     end
 
-    def provide_setup_script
+    def provide_bin_setup_script
       template "bin_setup.erb", "bin/setup", port_number: port, force: true
       run "chmod a+x bin/setup"
     end

@@ -1,8 +1,6 @@
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
-# TODO: letter opener
-# TODO: Bugsnag
 # TODO: test setup
 # TODO: Rocket Pants
 # TODO: Devise
@@ -63,10 +61,9 @@ module Suspenders
 
     def setup_development_environment
       say 'Setting up the development environment'
-      build :raise_on_delivery_errors
-      build :set_test_delivery_method
+      build :setup_development_mailer
       build :raise_on_unpermitted_parameters
-      build :provide_setup_script
+      build :provide_bin_setup_script
       build :provide_dev_prime_task
       build :configure_generators
       build :configure_i18n_for_missing_translations
