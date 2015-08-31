@@ -115,7 +115,6 @@ module Suspenders
       build :disable_xml_params
       build :fix_i18n_deprecation_warning
       build :setup_default_rake_task
-      build :configure_puma
     end
 
     def setup_stylesheets

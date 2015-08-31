@@ -262,10 +262,6 @@ Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 10).to_i
       generate 'rspec:install'
     end
 
-    def configure_puma
-      copy_file "puma.rb", "config/puma.rb"
-    end
-
     def setup_stylesheets
       remove_file "app/assets/stylesheets/application.css"
       copy_file "application.scss",
