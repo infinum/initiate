@@ -4,14 +4,8 @@ require 'rails/generators/rails/app/app_generator'
 # TODO:       build :provide_deploy_script
 module Suspenders
   class AppGenerator < Rails::Generators::AppGenerator
-    class_option :database, type: :string, aliases: "-d", default: "postgresql",
-      desc: "Configure for selected database (options: #{DATABASES.join("/")})"
-
     class_option :skip_turbolinks, type: :boolean, default: true,
       desc: "Skip turbolinks gem"
-
-    class_option :skip_bundle, type: :boolean, aliases: "-B", default: true,
-      desc: "Don't run bundle install"
 
     def finish_template
       invoke :suspenders_customization
@@ -45,11 +39,7 @@ module Suspenders
 
     def setup_database
       say 'Setting up database'
-
-      if 'postgresql' == options[:database]
-        build :use_postgres_config_template
-      end
-
+      build :use_postgres_config_template
       build :create_database
     end
 
