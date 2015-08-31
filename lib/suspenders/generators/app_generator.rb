@@ -2,8 +2,11 @@ require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
 # TODO: letter opener
-# TODO: bootstrap configuration
+# TODO: Bugsnag
 # TODO: test setup
+# TODO: Rocket Pants
+# TODO: Devise
+# TODO: introspect
 module Suspenders
   class AppGenerator < Rails::Generators::AppGenerator
     class_option :skip_turbolinks, type: :boolean, default: true,
@@ -15,6 +18,7 @@ module Suspenders
     end
 
     def suspenders_customization
+      invoke :ask_for_configuration
       invoke :customize_gemfile
       invoke :setup_database
       invoke :setup_development_environment
@@ -31,6 +35,14 @@ module Suspenders
       invoke :setup_bundler_audit
       invoke :setup_spring
       invoke :outro
+    end
+
+    def ask_for_configuration
+      invoke :ask_if_bootstrap_needed
+    end
+
+    def ask_if_bootstrap_needed
+      Suspenders::Config.use_bootstrap = yes?('Use bootstrap?', Thor::Shell::Color::YELLOW)
     end
 
     def customize_gemfile

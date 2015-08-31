@@ -107,15 +107,6 @@ module Suspenders
     def setup_staging_environment
       staging_file = 'config/environments/staging.rb'
       copy_file 'staging.rb', staging_file
-
-      config = <<-RUBY
-
-Rails.application.configure do
-  # ...
-end
-      RUBY
-
-      append_file staging_file, config
     end
 
     def setup_secret_token
@@ -207,7 +198,11 @@ end
     end
 
     def configure_simple_form
-      bundle_command "exec rails generate simple_form:install"
+      if Suspenders::Config.use_boostrap?
+        bundle_command "exec rails generate simple_form:install --bootstrap"
+      else
+        bundle_command "exec rails generate simple_form:install"
+      end
     end
 
     def configure_action_mailer
@@ -240,11 +235,21 @@ end
       remove_file "app/assets/stylesheets/application.css"
       copy_file "application.scss",
                 "app/assets/stylesheets/application.scss"
+
+      return unless Suspenders::Config.use_bootstrap?
+
+      append_file 'app/assets/stylesheets/application.scss' do
+        <<-EOS
+@import "bootstrap-sprockets";
+@import "bootstrap";
+        EOS
+      end
     end
 
     def gitignore_files
-      remove_file '.gitignore'
-      copy_file 'suspenders_gitignore', '.gitignore'
+      %w(.sass-cache powder public/system dump.rdb logfile .DS_Store).each do |gitignored|
+        append_file ".gitignore", gitignored
+      end
     end
 
     def init_git
