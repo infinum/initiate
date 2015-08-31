@@ -70,7 +70,6 @@ module Suspenders
     def setup_production_environment
       say 'Setting up the production environment'
       build :configure_smtp
-      build :enable_rack_canonical_host
       build :enable_rack_deflater
       build :setup_asset_host
     end

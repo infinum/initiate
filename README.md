@@ -36,8 +36,6 @@ It includes application gems like:
 * [jQuery Rails](https://github.com/rails/jquery-rails) for jQuery
 * [Normalize](https://necolas.github.io/normalize.css/) for resetting browser styles
 * [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
-* [Rack Canonical Host](https://github.com/tylerhunt/rack-canonical-host) to
-  ensure all requests are served from the same domain
 * [Recipient Interceptor](https://github.com/croaky/recipient_interceptor) to
   avoid accidentally sending emails to real people from staging
 * [Simple Form](https://github.com/plataformatec/simple_form) for form markup
