@@ -33,7 +33,6 @@ It includes application gems like:
   validation
 * [Flutie](https://github.com/thoughtbot/flutie) for `page_title` and `body_class` view
   helpers
-* [High Voltage](https://github.com/thoughtbot/high_voltage) for static pages
 * [jQuery Rails](https://github.com/rails/jquery-rails) for jQuery
 * [New Relic RPM](https://github.com/newrelic/rpm) for monitoring performance
 * [Normalize](https://necolas.github.io/normalize.css/) for resetting browser styles

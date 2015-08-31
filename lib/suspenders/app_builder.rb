@@ -271,18 +271,6 @@ Rack::Timeout.timeout = (ENV["RACK_TIMEOUT"] || 10).to_i
     def gitignore_files
       remove_file '.gitignore'
       copy_file 'suspenders_gitignore', '.gitignore'
-      [
-        'app/views/pages',
-        'spec/lib',
-        'spec/controllers',
-        'spec/helpers',
-        'spec/support/matchers',
-        'spec/support/mixins',
-        'spec/support/shared_examples'
-      ].each do |dir|
-        run "mkdir #{dir}"
-        run "touch #{dir}/.keep"
-      end
     end
 
     def init_git
