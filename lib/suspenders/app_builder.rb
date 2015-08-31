@@ -6,6 +6,11 @@ module Suspenders
       template 'README.md.erb', 'README.md'
     end
 
+    def generate_bugsnag
+      bugsnag_api_key = ask('Please insert bugsnag API KEY:', Thor::Shell::Color::YELLOW)
+      generate "bugsnag #{bugsnag_api_key}"
+    end
+
     def raise_on_delivery_errors
       replace_in_file 'config/environments/development.rb',
         'raise_delivery_errors = false', 'raise_delivery_errors = true'
@@ -150,6 +155,12 @@ module Suspenders
       template 'Gemfile.erb', 'Gemfile'
     end
 
+    def add_boostrap_sass_to_gemfile
+      inject_into_file(
+        'Gemfile', "\ngem \"bootstrap-sass\"",  after: 'gem "bugsnag"'
+      )
+    end
+
     def set_ruby_to_version_being_used
       create_file '.ruby-version', "#{Suspenders::RUBY_VERSION}\n"
     end
@@ -198,7 +209,7 @@ module Suspenders
     end
 
     def configure_simple_form
-      if Suspenders::Config.use_boostrap?
+      if Suspenders::Config.use_bootstrap?
         bundle_command "exec rails generate simple_form:install --bootstrap"
       else
         bundle_command "exec rails generate simple_form:install"

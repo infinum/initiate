@@ -9,9 +9,6 @@ require 'rails/generators/rails/app/app_generator'
 # TODO: introspect
 module Suspenders
   class AppGenerator < Rails::Generators::AppGenerator
-    class_option :skip_turbolinks, type: :boolean, default: true,
-      desc: "Skip turbolinks gem"
-
     def finish_template
       invoke :suspenders_customization
       super
@@ -21,6 +18,7 @@ module Suspenders
       invoke :ask_for_configuration
       invoke :customize_gemfile
       invoke :setup_database
+      invoke :setup_bugsang
       invoke :setup_development_environment
       invoke :setup_test_environment
       invoke :setup_production_environment
@@ -47,6 +45,7 @@ module Suspenders
 
     def customize_gemfile
       build :replace_gemfile
+      build :add_boostrap_sass_to_gemfile if Suspenders::Config.use_bootstrap?
       build :set_ruby_to_version_being_used
       bundle_command 'install'
     end
@@ -55,6 +54,11 @@ module Suspenders
       say 'Setting up database'
       build :use_postgres_config_template
       build :create_database
+    end
+
+    def setup_bugsang
+      say 'Setting up Bugsnag'
+      build :generate_bugsnag
     end
 
     def setup_development_environment
