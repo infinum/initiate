@@ -1,7 +1,9 @@
 require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
-# TODO:       build :provide_deploy_script
+# TODO: letter opener
+# TODO: bootstrap configuration
+# TODO: test setup
 module Suspenders
   class AppGenerator < Rails::Generators::AppGenerator
     class_option :skip_turbolinks, type: :boolean, default: true,
