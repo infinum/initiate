@@ -92,15 +92,12 @@ Suspenders also comes with:
 * [t() and l() in specs without prefixing with I18n][i18n]
 * An automatically-created `SECRET_KEY_BASE` environment variable in all
   environments
-* The analytics adapter [Segment][segment] (and therefore config for Google
-  Analytics, Intercom, Facebook Ads, Twitter Ads, etc.)
 
 [setup]: http://robots.thoughtbot.com/bin-setup
 [compress]: http://robots.thoughtbot.com/content-compression-with-rack-deflater/
 [pool]: https://devcenter.heroku.com/articles/concurrency-and-database-connections
 [binstub]: https://github.com/thoughtbot/suspenders/pull/282
 [i18n]: https://github.com/thoughtbot/suspenders/pull/304
-[segment]: https://segment.com
 
 ## Heroku
 

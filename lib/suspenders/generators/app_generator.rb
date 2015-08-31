@@ -32,7 +32,6 @@ module Suspenders
       invoke :remove_routes_comment_lines
       invoke :setup_git
       invoke :setup_database
-      invoke :setup_segment
       invoke :setup_bundler_audit
       invoke :setup_spring
       invoke :outro
@@ -126,11 +125,6 @@ module Suspenders
       say 'Initializing git'
       invoke :setup_gitignore
       invoke :init_git
-    end
-
-    def setup_segment
-      say 'Setting up Segment'
-      build :setup_segment
     end
 
     def setup_gitignore
