@@ -33,8 +33,6 @@ It includes application gems like:
   validation
 * [Flutie](https://github.com/thoughtbot/flutie) for `page_title` and `body_class` view
   helpers
-* [jQuery Rails](https://github.com/rails/jquery-rails) for jQuery
-* [Normalize](https://necolas.github.io/normalize.css/) for resetting browser styles
 * [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
 * [Recipient Interceptor](https://github.com/croaky/recipient_interceptor) to
   avoid accidentally sending emails to real people from staging
