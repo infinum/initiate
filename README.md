@@ -34,7 +34,6 @@ It includes application gems like:
 * [Flutie](https://github.com/thoughtbot/flutie) for `page_title` and `body_class` view
   helpers
 * [jQuery Rails](https://github.com/rails/jquery-rails) for jQuery
-* [New Relic RPM](https://github.com/newrelic/rpm) for monitoring performance
 * [Normalize](https://necolas.github.io/normalize.css/) for resetting browser styles
 * [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
 * [Rack Canonical Host](https://github.com/tylerhunt/rack-canonical-host) to
@@ -96,53 +95,12 @@ Suspenders also comes with:
 [binstub]: https://github.com/thoughtbot/suspenders/pull/282
 [i18n]: https://github.com/thoughtbot/suspenders/pull/304
 
-## Heroku
-
-You can optionally create Heroku staging and production apps:
-
-    suspenders app --heroku true
-
-This:
-
-* Creates a staging and production Heroku app
-* Sets them as `staging` and `production` Git remotes
-* Configures staging with `RACK_ENV` and `RAILS_ENV` environment variables set
-  to `staging`
-* Adds the [Rails Stdout Logging][logging-gem] gem
-  to configure the app to log to standard out,
-  which is how [Heroku's logging][heroku-logging] works.
-
-[logging-gem]: https://github.com/heroku/rails_stdout_logging
-[heroku-logging]: https://devcenter.heroku.com/articles/logging#writing-to-your-log
-
-You can optionally specify alternate Heroku flags:
-
-    suspenders app \
-      --heroku true \
-      --heroku-flags "--region eu --addons newrelic,sendgrid,ssl"
-
-See all possible Heroku flags:
-
-    heroku help create
-
 ## Git
 
 This will initialize a new git repository for your Rails app. You can
 bypass this with the `--skip-git` option:
 
     suspenders app --skip-git true
-
-## GitHub
-
-You can optionally create a GitHub repository for the suspended Rails app. It
-requires that you have [Hub](https://github.com/github/hub) on your system:
-
-    curl http://hub.github.com/standalone -sLo ~/bin/hub && chmod +x ~/bin/hub
-    suspenders app --github organization/project
-
-This has the same effect as running:
-
-    hub create organization/project
 
 ## Spring
 

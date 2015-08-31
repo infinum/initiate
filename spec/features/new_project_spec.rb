@@ -43,14 +43,6 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(File).to exist("#{project_path}/spec/support/i18n.rb")
   end
 
-  it "ensures newrelic.yml reads NewRelic license from env" do
-    newrelic_file = IO.read("#{project_path}/config/newrelic.yml")
-
-    expect(newrelic_file).to match(
-      /license_key: "<%= ENV\["NEW_RELIC_LICENSE_KEY"\] %>"/
-    )
-  end
-
   it "raises on unpermitted parameters in all environments" do
     result = IO.read("#{project_path}/config/application.rb")
 
