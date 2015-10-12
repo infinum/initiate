@@ -2,7 +2,6 @@ require 'rails/generators'
 require 'rails/generators/rails/app/app_generator'
 
 # TODO: test setup
-# TODO: Rocket Pants
 # TODO: Devise
 # TODO: introspect
 module Suspenders
