@@ -13,8 +13,10 @@ module SuspendersTestHelpers
     Dir.chdir(tmp_path) do
       Bundler.with_clean_env do
         ENV['TESTING'] = '1'
+        ENV['SECRET_KEY_BASE'] = '3b9ed53546e0f1bc9b45694b82143e6e4079543d77yy55wd5f7ccdd162a0382ZeD50dfeb40c21ada7b69808eb1faa900cdc4d523e6752348283a6558030122a6'
+        ENV['BUGSNAG_API_KEY'] = '6b5ab9ff1c7ba4eea039f5d4dd497c8e'
 
-        %x(#{suspenders_bin} #{APP_NAME} #{arguments})
+        `#{suspenders_bin} #{APP_NAME} #{arguments}`
       end
     end
   end

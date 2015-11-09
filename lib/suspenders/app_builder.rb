@@ -7,8 +7,7 @@ module Suspenders
     end
 
     def generate_bugsnag
-      bugsnag_api_key = ask('Please insert bugsnag API KEY:', Thor::Shell::Color::YELLOW)
-      generate "bugsnag #{bugsnag_api_key}"
+      copy_file 'bugsnag.rb', 'config/initializers/bugsnag.rb'
     end
 
     def setup_development_mailer
