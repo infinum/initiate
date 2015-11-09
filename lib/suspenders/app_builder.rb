@@ -156,12 +156,6 @@ module Suspenders
       template 'Gemfile.erb', 'Gemfile'
     end
 
-    def add_boostrap_sass_to_gemfile
-      inject_into_file(
-        'Gemfile', "\ngem \"bootstrap-sass\"",  after: 'gem "bugsnag"'
-      )
-    end
-
     def set_ruby_to_version_being_used
       create_file '.ruby-version', "#{Suspenders::RUBY_VERSION}\n"
     end
@@ -210,11 +204,7 @@ module Suspenders
     end
 
     def configure_simple_form
-      if Suspenders::Config.use_bootstrap?
-        bundle_command "exec rails generate simple_form:install --bootstrap"
-      else
-        bundle_command "exec rails generate simple_form:install"
-      end
+      bundle_command "exec rails generate simple_form:install"
     end
 
     def configure_action_mailer
@@ -247,15 +237,6 @@ module Suspenders
       remove_file "app/assets/stylesheets/application.css"
       copy_file "application.scss",
                 "app/assets/stylesheets/application.scss"
-
-      return unless Suspenders::Config.use_bootstrap?
-
-      append_file 'app/assets/stylesheets/application.scss' do
-        <<-EOS
-@import "bootstrap-sprockets";
-@import "bootstrap";
-        EOS
-      end
     end
 
     def gitignore_files

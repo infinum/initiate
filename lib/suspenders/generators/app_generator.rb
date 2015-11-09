@@ -12,7 +12,6 @@ module Suspenders
     end
 
     def suspenders_customization
-      invoke :ask_for_configuration
       invoke :customize_gemfile
       invoke :setup_database
       invoke :setup_bugsang
@@ -32,17 +31,8 @@ module Suspenders
       invoke :outro
     end
 
-    def ask_for_configuration
-      invoke :ask_if_bootstrap_needed
-    end
-
-    def ask_if_bootstrap_needed
-      Suspenders::Config.use_bootstrap = yes?('Use bootstrap?', Thor::Shell::Color::YELLOW)
-    end
-
     def customize_gemfile
       build :replace_gemfile
-      build :add_boostrap_sass_to_gemfile if Suspenders::Config.use_bootstrap?
       build :set_ruby_to_version_being_used
       bundle_command 'install'
     end
