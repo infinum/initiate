@@ -257,6 +257,10 @@ module Suspenders
       append_file "Rakefile", %{\ntask default: "bundler:audit"\n}
     end
 
+    def setup_annotate
+      copy_file 'annotate.rake', 'lib/tasks/annotate.rake'
+    end
+
     def setup_spring
       bundle_command "exec spring binstub --all"
     end

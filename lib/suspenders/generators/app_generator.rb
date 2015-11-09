@@ -26,6 +26,7 @@ module Suspenders
       invoke :remove_routes_comment_lines
       invoke :setup_git
       invoke :setup_bundler_audit
+      invoke :setup_annotate
       invoke :setup_spring
       invoke :setup_secret_token
       invoke :outro
@@ -125,6 +126,11 @@ module Suspenders
     def setup_bundler_audit
       say "Setting up bundler-audit"
       build :setup_bundler_audit
+    end
+
+    def setup_annotate
+      say "Setting up annotate"
+      build :setup_annotate
     end
 
     def setup_spring
