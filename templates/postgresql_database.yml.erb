@@ -8,13 +8,16 @@ default: &default
 
 development:
   <<: *default
-  database: <%= @app_name %>_development
-  password:
+  database: <%= @app_path %>_development
 
 test:
   <<: *default
-  database: <%= @app_name %>_test
+  database: <%= @app_path %>_test
+
+staging:
+  <<: *default
+  database: <%= @app_path %>_staging
 
 production:
   <<: *default
-  database: <%= @app_name %>_production
+  database: <%= @app_path %>_production
