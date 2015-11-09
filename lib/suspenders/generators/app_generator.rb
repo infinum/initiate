@@ -19,7 +19,6 @@ module Suspenders
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
-      invoke :setup_secret_token
       invoke :create_suspenders_views
       invoke :configure_app
       invoke :setup_stylesheets
@@ -28,6 +27,7 @@ module Suspenders
       invoke :setup_git
       invoke :setup_bundler_audit
       invoke :setup_spring
+      invoke :setup_secret_token
       invoke :outro
     end
 
@@ -146,8 +146,9 @@ module Suspenders
     end
 
     def outro
-      say 'Congratulations! You just pulled our suspenders.'
-      say "Remember to run 'rails generate airbrake' with your API key."
+      say '*************************************'
+      say 'Remember to add your BUGSNAG API key.'
+      say '*************************************'
     end
 
     private
