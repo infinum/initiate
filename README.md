@@ -1,4 +1,4 @@
-# Suspenders [![Build Status](https://secure.travis-ci.org/thoughtbot/suspenders.svg?branch=master)](http://travis-ci.org/thoughtbot/suspenders)
+# Initiate [![Build Status](https://travis-ci.org/infinum/initiate.svg)](https://travis-ci.org/infinum/initiate)
 
 Suspenders is the base Rails application used at
 [thoughtbot](http://thoughtbot.com).
