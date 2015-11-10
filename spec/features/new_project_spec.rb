@@ -5,7 +5,7 @@ RSpec.describe "Suspend a new project with default configuration" do
   before(:all) do
     drop_dummy_database
     remove_project_directory
-    run_suspenders
+    run_initiate
   end
 
   it "ensures project specs pass" do
@@ -24,7 +24,7 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(staging_file).to match(/#{config_stub}/), staging_file
   end
 
-  it "creates .ruby-version from Suspenders .ruby-version" do
+  it "creates .ruby-version from Initiate .ruby-version" do
     ruby_version_file = IO.read("#{project_path}/.ruby-version")
 
     expect(ruby_version_file).to eq "#{RUBY_VERSION}\n"
@@ -84,7 +84,7 @@ RSpec.describe "Suspend a new project with default configuration" do
 
   it "evaluates en.yml.erb" do
     locales_en_file = IO.read("#{project_path}/config/locales/en.yml")
-    app_name = SuspendersTestHelpers::APP_NAME
+    app_name = InitiateTestHelpers::APP_NAME
 
     expect(locales_en_file).to match(/application: #{app_name.humanize}/)
   end

@@ -4,14 +4,14 @@ require 'rails/generators/rails/app/app_generator'
 # TODO: test setup
 # TODO: Devise
 # TODO: introspect
-module Suspenders
+module Initiate
   class AppGenerator < Rails::Generators::AppGenerator
     def finish_template
-      invoke :suspenders_customization
+      invoke :initiate_customization
       super
     end
 
-    def suspenders_customization
+    def initiate_customization
       invoke :customize_gemfile
       invoke :setup_database
       invoke :setup_bugsang
@@ -19,7 +19,7 @@ module Suspenders
       invoke :setup_test_environment
       invoke :setup_production_environment
       invoke :setup_staging_environment
-      invoke :create_suspenders_views
+      invoke :create_initiate_views
       invoke :configure_app
       invoke :setup_stylesheets
       invoke :copy_miscellaneous_files
@@ -93,8 +93,8 @@ module Suspenders
       build :setup_secret_token
     end
 
-    def create_suspenders_views
-      say 'Creating suspenders views'
+    def create_initiate_views
+      say 'Creating initiate views'
       build :create_partials_directory
       build :create_shared_flashes
       build :create_shared_javascripts
@@ -164,7 +164,7 @@ module Suspenders
     private
 
     def get_builder_class
-      Suspenders::AppBuilder
+      Initiate::AppBuilder
     end
 
     def using_active_record?

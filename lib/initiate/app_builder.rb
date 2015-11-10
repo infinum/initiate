@@ -1,6 +1,6 @@
-module Suspenders
+module Initiate
   class AppBuilder < Rails::AppBuilder
-    include Suspenders::Actions
+    include Initiate::Actions
 
     def readme
       template 'README.md.erb', 'README.md'
@@ -168,7 +168,7 @@ module Suspenders
     end
 
     def set_ruby_to_version_being_used
-      create_file '.ruby-version', "#{Suspenders::RUBY_VERSION}\n"
+      create_file '.ruby-version', "#{Initiate::RUBY_VERSION}\n"
     end
 
     def enable_database_cleaner

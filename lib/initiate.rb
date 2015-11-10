@@ -1,0 +1,6 @@
+require 'rails'
+require 'initiate/version'
+require 'initiate/config'
+require 'initiate/generators/app_generator'
+require 'initiate/actions'
+require 'initiate/app_builder'

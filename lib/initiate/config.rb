@@ -1,4 +1,4 @@
-module Suspenders
+module Initiate
   class Config
     mattr_accessor :use_bootstrap
 
