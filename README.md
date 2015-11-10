@@ -27,26 +27,13 @@ It includes application gems like:
 
 * [Airbrake](https://github.com/airbrake/airbrake) for exception notification
 * [Autoprefixer Rails](https://github.com/ai/autoprefixer-rails) for CSS vendor prefixes
-* [Bourbon](https://github.com/thoughtbot/bourbon) for Sass mixins
-* [Bitters](https://github.com/thoughtbot/bitters) for scaffold application styles
 * [Delayed Job](https://github.com/collectiveidea/delayed_job) for background
   processing
 * [Flutie](https://github.com/thoughtbot/flutie) for `page_title` and `body_class` view
   helpers
-* [High Voltage](https://github.com/thoughtbot/high_voltage) for static pages
-* [jQuery Rails](https://github.com/rails/jquery-rails) for jQuery
-* [Neat](https://github.com/thoughtbot/neat) for semantic grids
-* [New Relic RPM](https://github.com/newrelic/rpm) for monitoring performance
-* [Normalize](https://necolas.github.io/normalize.css/) for resetting browser styles
 * [Postgres](https://github.com/ged/ruby-pg) for access to the Postgres database
-* [Rack Canonical Host](https://github.com/tylerhunt/rack-canonical-host) to
-  ensure all requests are served from the same domain
-* [Rack Timeout](https://github.com/kch/rack-timeout) to abort requests that are
-  taking too long
 * [Recipient Interceptor](https://github.com/croaky/recipient_interceptor) to
   avoid accidentally sending emails to real people from staging
-* [Refills](https://github.com/thoughtbot/refills) for “copy-paste” components
-  and patterns based on Bourbon, Neat and Bitters
 * [Simple Form](https://github.com/plataformatec/simple_form) for form markup
   and style
 * [Title](https://github.com/calebthompson/title) for storing titles in
@@ -97,48 +84,12 @@ Suspenders also comes with:
 * [t() and l() in specs without prefixing with I18n][i18n]
 * An automatically-created `SECRET_KEY_BASE` environment variable in all
   environments
-* Configuration for [CircleCI][circle] Continuous Integration (tests)
-* Configuration for [Hound][hound] Continuous Integration (style)
-* The analytics adapter [Segment][segment] (and therefore config for Google
-  Analytics, Intercom, Facebook Ads, Twitter Ads, etc.)
 
 [setup]: http://robots.thoughtbot.com/bin-setup
 [compress]: http://robots.thoughtbot.com/content-compression-with-rack-deflater/
 [pool]: https://devcenter.heroku.com/articles/concurrency-and-database-connections
 [binstub]: https://github.com/thoughtbot/suspenders/pull/282
 [i18n]: https://github.com/thoughtbot/suspenders/pull/304
-[circle]: https://circleci.com/docs
-[hound]: https://houndci.com
-[segment]: https://segment.com
-
-## Heroku
-
-You can optionally create Heroku staging and production apps:
-
-    suspenders app --heroku true
-
-This:
-
-* Creates a staging and production Heroku app
-* Sets them as `staging` and `production` Git remotes
-* Configures staging with `RACK_ENV` and `RAILS_ENV` environment variables set
-  to `staging`
-* Adds the [Rails Stdout Logging][logging-gem] gem
-  to configure the app to log to standard out,
-  which is how [Heroku's logging][heroku-logging] works.
-
-[logging-gem]: https://github.com/heroku/rails_stdout_logging
-[heroku-logging]: https://devcenter.heroku.com/articles/logging#writing-to-your-log
-
-You can optionally specify alternate Heroku flags:
-
-    suspenders app \
-      --heroku true \
-      --heroku-flags "--region eu --addons newrelic,sendgrid,ssl"
-
-See all possible Heroku flags:
-
-    heroku help create
 
 ## Git
 
@@ -146,18 +97,6 @@ This will initialize a new git repository for your Rails app. You can
 bypass this with the `--skip-git` option:
 
     suspenders app --skip-git true
-
-## GitHub
-
-You can optionally create a GitHub repository for the suspended Rails app. It
-requires that you have [Hub](https://github.com/github/hub) on your system:
-
-    curl http://hub.github.com/standalone -sLo ~/bin/hub && chmod +x ~/bin/hub
-    suspenders app --github organization/project
-
-This has the same effect as running:
-
-    hub create organization/project
 
 ## Spring
 

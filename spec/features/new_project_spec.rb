@@ -1,4 +1,5 @@
-require "spec_helper"
+require 'spec_helper'
+require 'pry'
 
 RSpec.describe "Suspend a new project with default configuration" do
   before(:all) do
@@ -29,14 +30,10 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(ruby_version_file).to eq "#{RUBY_VERSION}\n"
   end
 
-  it "copies dotfiles" do
-    expect(File).to exist("#{project_path}/.ctags")
-  end
-
   it "loads secret_key_base from env" do
     secrets_file = IO.read("#{project_path}/config/secrets.yml")
 
-    expect(secrets_file).to match(/secret_key_base: <%= ENV\["SECRET_KEY_BASE"\] %>/)
+    expect(secrets_file).to match(/secret_key_base: <%= ENV.fetch\('SECRET_KEY_BASE'\) %>/)
   end
 
   it "adds support file for action mailer" do
@@ -49,27 +46,6 @@ RSpec.describe "Suspend a new project with default configuration" do
 
   it "adds support file for i18n" do
     expect(File).to exist("#{project_path}/spec/support/i18n.rb")
-  end
-
-  it "creates good default .hound.yml" do
-    hound_config_file = IO.read("#{project_path}/.hound.yml")
-
-    expect(hound_config_file).to include "enabled: true"
-  end
-
-  it "ensures newrelic.yml reads NewRelic license from env" do
-    newrelic_file = IO.read("#{project_path}/config/newrelic.yml")
-
-    expect(newrelic_file).to match(
-      /license_key: "<%= ENV\["NEW_RELIC_LICENSE_KEY"\] %>"/
-    )
-  end
-
-  it "records pageviews through Segment if ENV variable set" do
-    expect(analytics_partial).
-      to include(%{<% if ENV["SEGMENT_KEY"] %>})
-    expect(analytics_partial).
-      to include(%{window.analytics.load("<%= ENV["SEGMENT_KEY"] %>");})
   end
 
   it "raises on unpermitted parameters in all environments" do
@@ -117,16 +93,10 @@ RSpec.describe "Suspend a new project with default configuration" do
     expect(File).to exist("#{project_path}/config/initializers/simple_form.rb")
   end
 
-  it "configs :test email delivery method for development" do
+  it "configs :letter_opener email delivery method for development" do
     dev_env_file = IO.read("#{project_path}/config/environments/development.rb")
     expect(dev_env_file).
-      to match(/^ +config.action_mailer.delivery_method = :test$/)
-  end
-
-  it "uses APPLICATION_HOST, not HOST in the production config" do
-    prod_env_file = IO.read("#{project_path}/config/environments/production.rb")
-    expect(prod_env_file).to match(/"APPLICATION_HOST"/)
-    expect(prod_env_file).not_to match(/"HOST"/)
+      to match(/^ +config.action_mailer.delivery_method = :letter_opener$/)
   end
 
   it "configs active job queue adapter" do
@@ -148,21 +118,6 @@ RSpec.describe "Suspend a new project with default configuration" do
     bin_stubs = %w(rake rails rspec)
     bin_stubs.each do |bin_stub|
       expect(IO.read("#{project_path}/bin/#{bin_stub}")).to match(spring_line)
-    end
-  end
-
-  it "removes comments and extra newlines from config files" do
-    config_files = [
-      IO.read("#{project_path}/config/application.rb"),
-      IO.read("#{project_path}/config/environment.rb"),
-      IO.read("#{project_path}/config/environments/development.rb"),
-      IO.read("#{project_path}/config/environments/production.rb"),
-      IO.read("#{project_path}/config/environments/test.rb"),
-    ]
-
-    config_files.each do |file|
-      expect(file).not_to match(/.*#.*/)
-      expect(file).not_to match(/^$\n/)
     end
   end
 
