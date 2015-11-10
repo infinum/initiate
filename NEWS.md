@@ -1,6 +1,35 @@
-1.31.0 (unreleased)
+1.34.0 (unreleased)
+
+* Suspenders command line responds to `-v` and `--version` options
+
+1.33.0 (October 23, 2015)
+
+* Add `quiet_assets` as development dependency
+* Reduce number of Puma processes and threads to reduce memory usage
+* Move non-runtime-dependency i18n-tasks to development and test Gemfile groups
+* Move non-runtime-dependency refills to the development Gemfile group
+* Generate empty `spec/factories.rb` file in accordance with thoughtbot’s
+  styleguide
+* Shoulda Matchers 3.0 configuration
+
+1.32.0 (October 9, 2015)
+
+* Install Foreman automatically during setup script
+* Port always defaults to 3000
+* Provide shoulda-matchers config
+* Set CI auto-deploy for Heroku suspended apps
+* Configure capybara-webkit to block unknown URLs
+* Add mandatory environment variables to .sample.env
+* Other bugfixes
+
+1.31.0 (September 3, 2015)
 
 * Update to Ruby 2.2.3
+* Add ctags configuration dotfile
+* Rename `$HOST` to `$APPLICATION_HOST` for zsh compatibility
+* Update Bitters to 1.1
+* Remove comments and newlines in config files
+* Abort tests run if `DATABASE_URL` env variable is set
 
 1.30.0 (July 30, 2015)
 

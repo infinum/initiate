@@ -25,3 +25,8 @@ Dir.chdir APP_ROOT do
   system 'rm -f log/*'
   system 'rm -rf tmp/cache'
 end
+# Set up database and add any development seed data
+bin/rake dev:prime
+
+# Add binstubs to PATH via export PATH=".git/safe/../../bin:$PATH" in ~/.zshenv
+mkdir -p .git/safe

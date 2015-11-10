@@ -32,8 +32,16 @@ module Suspenders
       inject_into_class "config/application.rb", "Application", config
     end
 
-    def provide_bin_setup_script
-      template "bin_setup.erb", "bin/setup", port_number: port, force: true
+    def configure_quiet_assets
+      config = <<-RUBY
+    config.quiet_assets = true
+      RUBY
+
+      inject_into_class "config/application.rb", "Application", config
+    end
+
+    def provide_setup_script
+      template "bin_setup.erb", "bin/setup", force: true
       run "chmod a+x bin/setup"
     end
 
@@ -61,6 +69,10 @@ module Suspenders
 
     def set_up_factory_girl_for_rspec
       copy_file 'factory_girl_rspec.rb', 'spec/support/factory_girl.rb'
+    end
+
+    def generate_factories_file
+      copy_file "factories.rb", "spec/factories.rb"
     end
 
     def configure_smtp
@@ -163,6 +175,13 @@ module Suspenders
       copy_file 'database_cleaner_rspec.rb', 'spec/support/database_cleaner.rb'
     end
 
+    def provide_shoulda_matchers_config
+      copy_file(
+        "shoulda_matchers_config_rspec.rb",
+        "spec/support/shoulda_matchers.rb"
+      )
+    end
+
     def configure_spec_support_features
       empty_directory_with_keep_file 'spec/features'
       empty_directory_with_keep_file 'spec/support/features'
@@ -197,6 +216,10 @@ module Suspenders
       copy_file 'action_mailer.rb', 'spec/support/action_mailer.rb'
     end
 
+    def configure_capybara_webkit
+      copy_file "capybara_webkit.rb", "spec/support/capybara_webkit.rb"
+    end
+
     def configure_time_formats
       remove_file "config/locales/en.yml"
       template "config_locales_en.yml.erb", "config/locales/en.yml"
@@ -207,10 +230,9 @@ module Suspenders
     end
 
     def configure_action_mailer
-      action_mailer_host "development", %{"localhost:#{port}"}
+      action_mailer_host "development", %{"localhost:3000"}
       action_mailer_host "test", %{"www.example.com"}
-      action_mailer_host "staging", %{ENV.fetch("HOST")}
-      action_mailer_host "production", %{ENV.fetch("HOST")}
+      action_mailer_host "production", %{ENV.fetch("APPLICATION_HOST")}
     end
 
     def configure_active_job
@@ -310,10 +332,6 @@ end
         support_bin = File.expand_path(File.join('..', '..', 'spec', 'fakes', 'bin'))
         "PATH=#{support_bin}:$PATH"
       end
-    end
-
-    def port
-      @port ||= [3000, 4000, 5000, 7000, 8000, 9000].sample
     end
 
     def serve_static_files_line
